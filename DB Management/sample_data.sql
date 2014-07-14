@@ -1,42 +1,39 @@
 -- address Sample data
---insert into address
---	values(0, '08540', '5 Independence Way','Princeton' ,'NJ');
---insert into address
---	values(1, '07030', '245 5th Street', 'Hoboken', 'NJ');
+insert into address
+	values(0, '08540', '5 Independence Way','Princeton' ,'NJ');
+insert into address
+	values(1, '07030', '245 5th Street', 'Hoboken', 'NJ');
 
 -- all_user Sample data
 insert into all_user
 	values(0, 'test_user0', 'test@gmail.com', '2014449999',
-			'John', 'Doe', 'mercury', 'c',
-			'08540', '5 Independence Way','Princeton' ,'NJ');
+			'John', 'Doe', 'mercury', 0, 'c');
 insert into all_user
 	values(1, 'administrator', 'admin@gmail.com', '1043332222',
-			'Admin', 'Smith', 'mercury', 'a',
-			'07030', '245 5th Street', 'Hoboken', 'NJ');
+			'Admin', 'Smith', 'mercury', 1, 'a');
 insert into all_user
 	values(2, 'admin', 'admin@aol.com', '2220004444',
-			'Admin', 'Howard', 'mercury', 'a',
-			'08540', '5 Independence Way','Princeton' ,'NJ');
+			'Admin', 'Howard', 'mercury', 0, 'a');
 
 -- card Sample data
 insert into card
-	values('3714496353984312', 0, '5', '2015', 'VISA');
+	values(0, '3714496353984312', '5', '2015', 'VISA');
 insert into card
-	values('4111111111111111', 0, '6', '2020', 'MASTER');
+	values(1, '4111111111111111', '6', '2020', 'MASTER');
 insert into card
-	values('5105105105105100', 0, '12', '2017', 'MASTER');
+	values(2, '5105105105105100', '12', '2017', 'MASTER');
 insert into card
-	values('378282246310005', 0, '8', '2040', 'AMERICAN EXPRESS');
+	values(3, '378282246310005', '8', '2040', 'AMERICAN EXPRESS');
 
 -- user_cards sample data
---insert into user_cards
---	values(0, 0);
---insert into user_cards
---	values(0, 1);
---insert into user_cards
---	values(0, 2);
---insert into user_cards
---	values(0, 3);
+insert into user_cards
+	values(0, 0);
+insert into user_cards
+	values(0, 1);
+insert into user_cards
+	values(0, 2);
+insert into user_cards
+	values(0, 3);
 
 -- station sample data
 insert into station
@@ -84,10 +81,9 @@ insert into transaction
 insert into transaction 
 	values (5, 0, 2, null);
 
-commit;
-
 -- Display all results properly.
 set numwidth 5;
+select * from address;
 
 column username format a10;
 column email format a10;
@@ -101,6 +97,8 @@ select * from all_user;
 
 set numwidth 5;
 select * from card;
+
+select * from user_cards;
 
 select * from station;
 
