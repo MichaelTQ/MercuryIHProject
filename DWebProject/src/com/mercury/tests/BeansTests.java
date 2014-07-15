@@ -35,10 +35,9 @@ public class BeansTests {
 		to.setId(11);
 		System.out.println(from);
 		System.out.println(to);
-		Ticket ticket = new Ticket("BAI7D31I", from, to, 35, 24.5, tsStart, tsArrive);
-		System.out.println(new Ticket("BAI7D31I", from, to, 35, 24.5,
-				tsStart, tsArrive));
-		System.out.println(new Transaction(tmpUser, ticket, null));
+		Ticket ticket = new Ticket(from, to, 35, 24.5, tsStart, tsArrive);
+		System.out.println(new Ticket(from, to, 35, 24.5, tsStart, tsArrive));
+		System.out.println(new Order(tmpUser, ticket, null, "ADAO42", 2));
 	}
 
 }

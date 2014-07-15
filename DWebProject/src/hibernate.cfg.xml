@@ -11,7 +11,7 @@
 			oracle.jdbc.driver.OracleDriver
 		</property>
 		<property name="connection.url">
-			jdbc:oracle:thin:@192.168.1.11:1521:XE
+			jdbc:oracle:thin:@192.168.1.120:1521:XE
 		</property>
 		<property name="connection.username">ticket</property>
 		<property name="connection.password">mercury</property>
@@ -21,7 +21,7 @@
 		<mapping class="com.mercury.beans.User" />
 		<mapping class="com.mercury.beans.Card" />
 		<mapping class="com.mercury.beans.Ticket" />
-		<mapping class="com.mercury.beans.Transaction" />
+		<mapping class="com.mercury.beans.Order" />
 		<mapping class="com.mercury.beans.Station" />
 	</session-factory>
 </hibernate-configuration>

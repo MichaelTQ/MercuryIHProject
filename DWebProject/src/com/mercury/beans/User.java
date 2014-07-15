@@ -32,11 +32,11 @@ public class User{
 	private String state;
 	
 	private Set<Card> cards;
-	private Set<Transaction> transactions;
+	private Set<Order> orders;
 	
 	public User() {
 		this.cards = new HashSet<Card>();
-		this.transactions = new HashSet<Transaction>();
+		this.orders = new HashSet<Order>();
 	}
 	public User(String username, String email, String phone, 
 			String firstName, String lastName, String password,
@@ -57,7 +57,7 @@ public class User{
 		this.state = state;
 		
 		this.cards = new HashSet<Card>();
-		this.transactions = new HashSet<Transaction>();
+		this.orders = new HashSet<Order>();
 	}
 	
 	@Override
@@ -186,18 +186,17 @@ public class User{
 	}
 	
 	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
-	@Cascade({CascadeType.SAVE_UPDATE})
-	public Set<Transaction> getTransactions() {
-		return transactions;
+	public Set<Order> getOrders() {
+		return orders;
 	}
-	public void setTransactions(Set<Transaction> transactions) {
-		this.transactions = transactions;
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
 	}
 	
-	public void addTransaction(Transaction transaction) {
-		this.transactions.add(transaction);
+	public void addOrder(Order order) {
+		this.orders.add(order);
 	}
-	public void removeTransaction(Transaction transaction) {
-		this.transactions.remove(transaction);
+	public void removeOrder(Order order) {
+		this.orders.remove(order);
 	}
 }

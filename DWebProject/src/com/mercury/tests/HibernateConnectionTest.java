@@ -10,9 +10,10 @@ import com.mercury.utils.HibernateUtil;
 
 public class HibernateConnectionTest {
 	@SuppressWarnings("unchecked")
-	public static void main(String[] args) {
+	public static void printAll() {
 		Session session = HibernateUtil.currentSession();
 		
+		System.out.println("\n######################################################");
 		System.out.println("Users:");
 		String hql = "from User";
 		Query query = session.createQuery(hql);
@@ -21,15 +22,26 @@ public class HibernateConnectionTest {
 			System.out.println(u);
 		}
 		
-		System.out.println("\nCards:");
+		System.out.println("\n######################################################");
+		System.out.println("Cards:");
 		hql = "from Card";
 		query = session.createQuery(hql);
 		List<Card> cardList = query.list();
 		for (Card card:cardList) {
 			System.out.println(card);
 		}
+
+		System.out.println("\n######################################################");
+		System.out.println("Station: ");
+		hql = "from Station";
+		query = session.createQuery(hql);
+		List<Station> stationList = query.list();
+		for (Station s:stationList) {
+			System.out.println(s);
+		}
 		
-		System.out.println("\nTickets:");
+		System.out.println("\n######################################################");
+		System.out.println("Tickets:");
 		hql = "from Ticket";
 		query = session.createQuery(hql);
 		List<Ticket> ticketList = query.list();
@@ -37,21 +49,19 @@ public class HibernateConnectionTest {
 			System.out.println(ticket);
 		}
 		
-		System.out.println("\nTransactions: ");
-		hql = "from Transaction";
+		System.out.println("\n######################################################");
+		System.out.println("Orders: ");
+		hql = "from Order";
 		query = session.createQuery(hql);
-		List<Transaction> transactionList = query.list();
-		for (Transaction ts:transactionList) {
-			System.out.println(ts);
+		List<Order> orders = query.list();
+		for (Order order:orders) {
+			System.out.println(order);
 		}
 		
-		System.out.println("\nStation: ");
-		hql = "from Station";
-		query = session.createQuery(hql);
-		List<Station> stationList = query.list();
-		for (Station s:stationList) {
-			System.out.println(s);
-		}
 		HibernateUtil.closeSession();
+	}
+	
+	public static void main(String[] args) {
+		printAll();
 	}
 }

@@ -1,8 +1,29 @@
--- address Sample data
---insert into address
---	values(0, '08540', '5 Independence Way','Princeton' ,'NJ');
---insert into address
---	values(1, '07030', '245 5th Street', 'Hoboken', 'NJ');
+-- Clear Data from all tables
+alter table orders
+	disable constraint orders_user_fk;
+alter table orders
+	disable constraint orders_ticket_fk;
+alter table ticket
+	disable constraint ticket_from_station_fk;
+alter table ticket
+	disable constraint ticket_to_station_fk;
+alter table card
+	disable constraint card_user_fk;
+truncate table all_user;
+truncate table card;
+truncate table station;
+truncate table ticket;
+truncate table orders;
+alter table card
+	enable constraint card_user_fk;
+alter table ticket
+	enable constraint ticket_to_station_fk;
+alter table ticket
+	enable constraint ticket_from_station_fk;
+alter table orders
+	enable constraint orders_ticket_fk;
+alter table orders
+	enable constraint orders_user_fk;
 
 -- all_user Sample data
 insert into all_user
@@ -28,16 +49,6 @@ insert into card
 insert into card
 	values('378282246310005', 0, '8', '2040', 'AMERICAN EXPRESS');
 
--- user_cards sample data
---insert into user_cards
---	values(0, 0);
---insert into user_cards
---	values(0, 1);
---insert into user_cards
---	values(0, 2);
---insert into user_cards
---	values(0, 3);
-
 -- station sample data
 insert into station
 	values(0, 'Princeton Junction', 'NJ', 'Princeton');
@@ -54,35 +65,35 @@ insert into station
 
 -- ticket sample data
 insert into ticket
-	values(0, 'ADAO42', 0, 5, 50, 70, 
+	values(0, 0, 5, 50, 70, 
 		(select current_timestamp from dual), null);
 insert into ticket
-	values(1, 'IHsB3D', 0, 1, 100, 10, null , null);
+	values(1, 0, 1, 100, 10, null , null);
 insert into ticket
-	values(2, '84NBY3', 0, 2, 50, 25, null , null);
+	values(2, 0, 2, 50, 25, null , null);
 insert into ticket
-	values(3, '0JB84S', 0, 3, 20, 7.5, null , null);
+	values(3, 0, 3, 20, 7.5, null , null);
 insert into ticket
-	values(4, 'MX9SS3', 2, 4, 20, 20, null , null);
+	values(4, 2, 4, 20, 20, null , null);
 insert into ticket
-	values(5, '9HVOQD', 2, 5, 40, 55, null , null);
+	values(5, 2, 5, 40, 55, null , null);
 insert into ticket
-	values(6, 'YB7NBE', 3, 4, 20, 40, null , null);
+	values(6, 3, 4, 20, 40, null , null);
 
--- transaction sample data
-insert into transaction 
-	values (0, 0, 4,
+-- orders sample data
+insert into orders
+	values (0, 0, 4, 'ADAO42', 2,
 		(select current_timestamp from dual));
-insert into transaction 
-	values (1, 0, 2, null);
-insert into transaction 
-	values (2, 0, 0, null);
-insert into transaction 
-	values (3, 0, 3, null);
-insert into transaction 
-	values (4, 0, 6, null);
-insert into transaction 
-	values (5, 0, 2, null);
+insert into orders
+	values (1, 0, 2, 'IHsB3D', 1, null);
+insert into orders 
+	values (2, 0, 0, '84NBY3', 1, null);
+insert into orders 
+	values (3, 0, 3, '0JB84S', 3, null);
+insert into orders 
+	values (4, 0, 6, 'MX9SS3', 2, null);
+insert into orders 
+	values (5, 0, 2, '9HVOQD', 1, null);
 
 commit;
 
@@ -109,7 +120,7 @@ column arrive_time format a15;
 select * from ticket;
 
 column order_time format a30;
-select * from transaction;
+select * from orders;
 
 -- Clear certain column format
 column column_name clear;
