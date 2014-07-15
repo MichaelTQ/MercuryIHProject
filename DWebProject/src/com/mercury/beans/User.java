@@ -1,10 +1,20 @@
 package com.mercury.beans;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
-@Table(name="all_user")
-public class User {
+@Table(name="all_user", uniqueConstraints={
+		@UniqueConstraint(columnNames = { "username" }),
+		@UniqueConstraint(columnNames = { "email" })
+})
+public class User{
 	// User fields
 	private int id;
 	private String username;
@@ -21,14 +31,18 @@ public class User {
 	private String city;
 	private String state;
 	
-	public User() {}
-	public User(String email, String username, String phone, 
+	private Set<Card> cards;
+	
+	public User() {
+		this.cards = new HashSet<Card>();
+	}
+	public User(String username, String email, String phone, 
 			String firstName, String lastName, String password,
 			char type, String zip_code, String street, String city,
 			String state) {
 		//this.id = id;
-		this.email = email;
 		this.username = username;
+		this.email = email;
 		this.phone = phone;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -39,6 +53,7 @@ public class User {
 		this.street = street;
 		this.city = city;
 		this.state = state;
+		this.cards = new HashSet<Card>();
 	}
 	
 	@Override
@@ -46,13 +61,14 @@ public class User {
 		return "ID: " + this.id + "\tUsername: " + this.username + "\tEmail: " +
 				this.email + "\tPhone: " + this.phone + "\tFName: " +
 				this.firstName + "\tLName: " + this.lastName + "\tPassword: " + 
-				this.password + "\n\tAddressID: " + "\tType: " + this.type +
+				this.password + "\n\tType: " + this.type +
 				"\tZipCode: " + this.zip_code + "\tStreet: " + this.street +
 				"\tCity: " + this.city + "\tState: " + this.state;
 	}
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GenericGenerator(name="kaugen", strategy="increment")
+	@GeneratedValue(generator="kaugen")
 	@Column(name="id", unique=true, nullable=false)
 	public int getId() {
 		return id;
@@ -147,5 +163,22 @@ public class User {
 	}
 	public void setState(String state) {
 		this.state = state;
+	}
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
+	@Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE_ORPHAN})
+	public Set<Card> getCards() {
+		return cards;
+	}
+	public void setCards(Set<Card> cards) {
+		this.cards = cards;
+	}
+	
+	public void addCard(Card card) {
+		this.cards.add(card);
+	}
+	
+	public void removeCard(Card card) {
+		this.cards.remove(card);
 	}
 }

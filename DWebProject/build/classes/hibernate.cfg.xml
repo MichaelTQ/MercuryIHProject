@@ -5,30 +5,22 @@
 <hibernate-configuration>
 	<session-factory>
 	<property name="show_sql">true</property> 
-		<property name="format_sql">true</property>
+		<property name="format_sql">false</property>
 		<property name="dialect">org.hibernate.dialect.OracleDialect</property>
-		<property name="hibernate.cache.use_query_cache">true</property>
 		<property name="connection.driver_class">
 			oracle.jdbc.driver.OracleDriver
 		</property>
 		<property name="connection.url">
 			jdbc:oracle:thin:@192.168.1.11:1521:XE
 		</property>
-		<!--
-		<property name="connection.url">
-				 jdbc:oracle:thin:@192.168.1.123:1521:XE
-		</property>
-		-->
 		<property name="connection.username">ticket</property>
 		<property name="connection.password">mercury</property>
-		
-		<property name="cache.provider_class">
-	  			org.hibernate.cache.EhCacheProvider
-		</property>
-		
 		<!--
 		<mapping resource="com/mercury/mappings/User.hbm.xml"/>
 		-->
 		<mapping class="com.mercury.beans.User" />
+		<mapping class="com.mercury.beans.Card" />
+		<mapping class="com.mercury.beans.Ticket" />
+		<mapping class="com.mercury.beans.Transaction" />
 	</session-factory>
 </hibernate-configuration>

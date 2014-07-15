@@ -15,7 +15,9 @@ public class BeansTests {
 	public void testToStrings() {
 		System.out.println(new User("test0", "test@gmail.com", "2014449999",
 				"John", "Doe", "mercury", 'c', "07030", "322 1st street", "Hoboken", "NJ"));
-		System.out.println(new Card(0, "1234000043219999", "12", "2050", "Visa"));
+		User tmpUser = new User();
+		tmpUser.setId(10);
+		System.out.println(new Card("1234000043219999", tmpUser, "12", "2050", "Visa"));
 		Timestamp timestamp = new Timestamp(new Date().getTime());
 		timestamp.setNanos(0);
 		System.out.println("java.sql.Timestamp Now: " + timestamp);
