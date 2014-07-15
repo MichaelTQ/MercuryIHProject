@@ -22,5 +22,6 @@
 		<mapping class="com.mercury.beans.Card" />
 		<mapping class="com.mercury.beans.Ticket" />
 		<mapping class="com.mercury.beans.Transaction" />
+		<mapping class="com.mercury.beans.Station" />
 	</session-factory>
 </hibernate-configuration>

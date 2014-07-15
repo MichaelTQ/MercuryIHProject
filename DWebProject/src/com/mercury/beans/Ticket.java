@@ -2,13 +2,11 @@ package com.mercury.beans;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-import org.hibernate.annotations.Check;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -16,21 +14,25 @@ import org.hibernate.annotations.GenericGenerator;
 public class Ticket {
 	private int id;
 	private String orderNumber;
-	private int fromID;
-	private int toID;
+//	private int fromID;
+//	private int toID;
+	private Station fromStation;
+	private Station toStation;
 	private int maxNumber;
 	private double price;
 	private Timestamp startTime;
 	private Timestamp arriveTime;
 	
 	public Ticket() {}
-	public Ticket(int id, String orderNumber, int fromID,
-			int toID, int maxNumber, double price,
+	public Ticket(String orderNumber, Station from,
+			Station to, int maxNumber, double price,
 			Timestamp startTime, Timestamp arriveTime) {
-		this.id = id;
+//		this.id = id;
 		this.orderNumber = orderNumber;
-		this.fromID = fromID;
-		this.toID = toID;
+//		this.fromID = fromID;
+//		this.toID = toID;
+		this.fromStation = from;
+		this.toStation = to;
 		this.maxNumber = maxNumber;
 		this.price = price;
 		this.startTime = startTime;
@@ -40,8 +42,8 @@ public class Ticket {
 	@Override
 	public String toString() {
 		return "ID: " + this.id + "\tOrderNumber: " + this.orderNumber
-				+ "\tfromID: " + this.fromID + "\ttoID: " + this.toID
-				+ "\tmaxNumber: " + this.maxNumber + "\tPrice: "
+				+ "\tfromID: " + this.fromStation.getId() + "\ttoID: " +
+				this.toStation.getId() + "\tmaxNumber: " + this.maxNumber + "\tPrice: "
 				+ this.price + "\tStartTime: " + this.startTime
 				+ "\tArriveTime: " + this.arriveTime;
 	}
@@ -65,21 +67,41 @@ public class Ticket {
 		this.orderNumber = orderNumber;
 	}
 	
-	@Column(name="from_id", nullable=false)
-	public int getFromID() {
-		return fromID;
+//	@Column(name="from_id", nullable=false)
+//	public int getFromID() {
+//		return fromID;
+//	}
+//	public void setFromID(int fromID) {
+//		this.fromID = fromID;
+//	}
+//	
+//	@Column(name="to_id", nullable=false)
+//	@Check(constraints="from_id > to_id or from_id < to_id")
+//	public int getToID() {
+//		return toID;
+//	}
+//	public void setToID(int toID) {
+//		this.toID = toID;
+//	}
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@Cascade({CascadeType.DELETE_ORPHAN, CascadeType.SAVE_UPDATE})
+	@JoinColumn(name="from_id", nullable=false)
+	public Station getFromStation() {
+		return fromStation;
 	}
-	public void setFromID(int fromID) {
-		this.fromID = fromID;
+	public void setFromStation(Station fromStation) {
+		this.fromStation = fromStation;
 	}
 	
-	@Column(name="to_id", nullable=false)
-	@Check(constraints="from_id > to_id or from_id < to_id")
-	public int getToID() {
-		return toID;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@Cascade({CascadeType.DELETE_ORPHAN, CascadeType.SAVE_UPDATE})
+	@JoinColumn(name="to_id", nullable=false)
+	public Station getToStation() {
+		return toStation;
 	}
-	public void setToID(int toID) {
-		this.toID = toID;
+	public void setToStation(Station toStation) {
+		this.toStation = toStation;
 	}
 	
 	@Column(name="max_num")

@@ -29,9 +29,16 @@ public class BeansTests {
 		cArrive.set(2011, 0, 1, 20, 0);
 		Timestamp tsArrive = new Timestamp(cArrive.getTimeInMillis());
 		tsArrive.setNanos(0);
-		System.out.println(new Ticket(0, "BAI7D31I", 0, 2, 35, 24.5,
+		Station from = new Station("Princeton", "NJ", "Princeton");
+		from.setId(10);
+		Station to = new Station("Hoboken Terminal", "NJ", "Hoboken");
+		to.setId(11);
+		System.out.println(from);
+		System.out.println(to);
+		Ticket ticket = new Ticket("BAI7D31I", from, to, 35, 24.5, tsStart, tsArrive);
+		System.out.println(new Ticket("BAI7D31I", from, to, 35, 24.5,
 				tsStart, tsArrive));
-		System.out.println(new Transaction(0, 2, 4, tsStart));
+		System.out.println(new Transaction(tmpUser, ticket, null));
 	}
 
 }

@@ -44,6 +44,14 @@ public class HibernateConnectionTest {
 		for (Transaction ts:transactionList) {
 			System.out.println(ts);
 		}
+		
+		System.out.println("\nStation: ");
+		hql = "from Station";
+		query = session.createQuery(hql);
+		List<Station> stationList = query.list();
+		for (Station s:stationList) {
+			System.out.println(s);
+		}
 		HibernateUtil.closeSession();
 	}
 }

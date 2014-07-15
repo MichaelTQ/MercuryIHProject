@@ -32,9 +32,11 @@ public class User{
 	private String state;
 	
 	private Set<Card> cards;
+	private Set<Transaction> transactions;
 	
 	public User() {
 		this.cards = new HashSet<Card>();
+		this.transactions = new HashSet<Transaction>();
 	}
 	public User(String username, String email, String phone, 
 			String firstName, String lastName, String password,
@@ -53,7 +55,9 @@ public class User{
 		this.street = street;
 		this.city = city;
 		this.state = state;
+		
 		this.cards = new HashSet<Card>();
+		this.transactions = new HashSet<Transaction>();
 	}
 	
 	@Override
@@ -177,8 +181,23 @@ public class User{
 	public void addCard(Card card) {
 		this.cards.add(card);
 	}
-	
 	public void removeCard(Card card) {
 		this.cards.remove(card);
+	}
+	
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="user")
+	@Cascade({CascadeType.SAVE_UPDATE})
+	public Set<Transaction> getTransactions() {
+		return transactions;
+	}
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+	
+	public void addTransaction(Transaction transaction) {
+		this.transactions.add(transaction);
+	}
+	public void removeTransaction(Transaction transaction) {
+		this.transactions.remove(transaction);
 	}
 }

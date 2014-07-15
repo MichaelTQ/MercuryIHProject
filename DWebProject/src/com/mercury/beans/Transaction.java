@@ -4,29 +4,31 @@ import java.sql.Timestamp;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="transaction")
 public class Transaction {
 	private int id;
-	private int userID;
-	private int ticketID;
+//	private int userID;
+	private User user;
+//	private int ticketID;
+	private Ticket ticket;
 	private Timestamp orderTime;
 	
 	public Transaction() {}
-	public Transaction (int id, int userID, int ticketID,
-			Timestamp orderTime) {
-		this.id = id;
-		this.userID = userID;
-		this.ticketID = ticketID;
+	public Transaction (User user, Ticket ticket, Timestamp orderTime) {
+		this.user = user;
+		this.ticket = ticket;
 		this.orderTime = orderTime;
 	}
 	
 	@Override
 	public String toString() {
-		return "ID: " + this.id + "\tUserID: " + this.userID +
-				"\tTicketID: " + this.ticketID + "\tOrderTime: "
+		return "ID: " + this.id + "\tUserID: " + this.user.getId() +
+				"\tTicketID: " + this.ticket.getId() + "\tOrderTime: "
 				+ this.orderTime;
 	}
 	
@@ -41,20 +43,23 @@ public class Transaction {
 		this.id = id;
 	}
 	
-	@Column(name="user_id", nullable=false)
-	public int getUserID() {
-		return userID;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="user_id")
+	public User getUser() {
+		return user;
 	}
-	public void setUserID(int userID) {
-		this.userID = userID;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
-	@Column(name="ticket_id", nullable=false)
-	public int getTicketID() {
-		return ticketID;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@Cascade({CascadeType.SAVE_UPDATE})
+	@JoinColumn(name="ticket_id")
+	public Ticket getTicket() {
+		return ticket;
 	}
-	public void setTicketID(int ticketID) {
-		this.ticketID = ticketID;
+	public void setTicket(Ticket ticket) {
+		this.ticket = ticket;
 	}
 	
 	@Column(name="order_time")
