@@ -1,4 +1,4 @@
--- Clear Data from all tables
+﻿-- Clear Data from all tables
 alter table orders
 	disable constraint orders_user_fk;
 alter table orders
@@ -28,16 +28,16 @@ alter table orders
 -- all_user Sample data
 insert into all_user
 	values(0, 'test_user0', 'test@gmail.com', '2014449999',
-			'John', 'Doe', 'mercury', 'c',
-			'08540', '5 Independence Way','Princeton' ,'NJ');
+			'John', 'Doe', 'mercury',
+			'08540', '5 Independence Way','Princeton' ,'NJ', 1, 'ROLE_USER');
 insert into all_user
 	values(1, 'administrator', 'admin@gmail.com', '1043332222',
-			'Admin', 'Smith', 'mercury', 'a',
-			'07030', '245 5th Street', 'Hoboken', 'NJ');
+			'Admin', 'Smith', 'mercury',
+			'07030', '245 5th Street', 'Hoboken', 'NJ', 1, 'ROLE_ADMIN');
 insert into all_user
 	values(2, 'admin', 'admin@aol.com', '2220004444',
-			'Admin', 'Howard', 'mercury', 'a',
-			'08540', '5 Independence Way','Princeton' ,'NJ');
+			'Admin', 'Howard', 'mercury',
+			'08540', '5 Independence Way','Princeton' ,'NJ', 1, 'ROLE_ADMIN');
 
 -- card Sample data
 insert into card

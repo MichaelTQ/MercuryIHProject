@@ -15,11 +15,12 @@ create table all_user (
 	first_name varchar2(20),
 	last_name varchar2(20),
 	password varchar2(50) not null,
-	type char(1) not null,
 	zip_code char(5),
 	street varchar2(20),
 	city varchar2(20),
-	state char(2)
+	state char(2),
+	enabled number(1) not null,
+	authority varchar2(10) not null;
 );
 
 -- Create table card
